@@ -24,7 +24,6 @@ public class TestExecutor {
 				
 			}});
 		
-		service.
 		
 		service.shutdown();
 		
