@@ -9,7 +9,7 @@ public class HelloClient {
 	public static void main(String[] args) throws NamingException,RemoteException
 	{
 		HelloService s = new HelloService();
-		Hello port = s.getPort(Hello.class); // ´úÀí
+		Hello port = s.getPort(Hello.class); // proxy
 		
 		String result = port.sayHello("world");
 		System.out.println(result);
