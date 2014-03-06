@@ -1,5 +1,6 @@
 /**
- * socket demo
+ * simple socket demo
+ * client -> server
  * author:licunqing
  */
 
@@ -8,6 +9,7 @@ package com.cacard.demo.network;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -20,7 +22,6 @@ public class AppSocket {
 	{
 		startServerSocket();
 		
-		// sleep
 		try {
 			Thread.currentThread().sleep(3000);
 		} catch (InterruptedException e) {
@@ -63,10 +64,6 @@ public class AppSocket {
 						
 						System.out.println("->"+result);
 						
-						// write data
-						OutputStream os = clientSocket.getOutputStream();
-						os.write("hehe".getBytes("UTF-8"));
-						os.close();
 						
 					}
 				} catch (Exception e) {
@@ -89,10 +86,8 @@ public class AppSocket {
 	 */
 	public static void startClient()
 	{
-		for(int i=0;i<1;i++)
+		for(int i=0;i<10;i++)
 		{
-			System.out.println("thread "+i);
-			
 			new Thread(new Runnable(){
 
 				@Override
@@ -100,32 +95,12 @@ public class AppSocket {
 					
 					Socket s = null;
 					try {
-						System.out.println("start a client socket:");
+						System.out.println("[client]start a client socket:");
 						s = new Socket("127.0.0.1",port);
-						s.setSoLinger(true, 0);
-						s.setTcpNoDelay(true);
-						
-						// TODO:如何实现Client端在写入数据之后，flush，然后read阻塞等待Server用这条连接返回的数据
 						
 						// write data
 						OutputStream stream = s.getOutputStream();
-						stream.write("Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.Hello.".getBytes("UTF-8"));
-						
-						stream.flush();
-						System.out.println("[client][after flush]socket is close?"+s.isClosed());
-						//stream.close();
-						//System.out.println("[client][after close]socket is close?"+s.isClosed());
-						
-						// read (blocking)
-						System.out.println("[client]try read");
-						InputStream is = s.getInputStream();
-						int len=is.read();
-						while(len>=0)
-						{
-							System.out.println("[client]reading...");
-							len=is.read();
-						}
-						
+						stream.write("Hello".getBytes("UTF-8"));
 						
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -148,6 +123,5 @@ public class AppSocket {
 			}
 		}
 	}
-	
 	
 }

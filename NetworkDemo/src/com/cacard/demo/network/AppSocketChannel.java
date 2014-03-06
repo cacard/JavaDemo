@@ -1,3 +1,8 @@
+/**
+ * ServerSocketChannel Demo
+ * author:licunqing
+ */
+
 package com.cacard.demo.network;
 
 import java.io.IOException;
@@ -18,225 +23,173 @@ import java.util.TreeSet;
 
 public class AppSocketChannel {
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 
-		// start server socket channel
-		new Thread(new Runnable(){
+		new Thread(new MyServerSocketChannel()).start();
 
-			@Override
-			public void run() {
-				testServerSocketChannel();
-				
-			}}).start();
-		
-		try {
-			Thread.currentThread().sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		startClientConnectionInNewThread(90);
-		
-		//startClientConnectionInNewThread(91);
-		
+		startClient(90);
+
 	}
+
 	
-	static void startServerSocket()
-	{
-		new Thread(new Runnable(){
+	static void startClient(final int port) {
+		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				try {
-					ServerSocket ss = new ServerSocket(90);
-					System.out.println("server socket is accepting ...");
-					ss.accept();
-				} catch (IOException e) {
-					e.printStackTrace();
+
+				Socket s = null;
+
+				while (true) {
+
+					try {
+						System.out.println("client socket try connect to port "
+								+ port);
+						s = new Socket("localhost", port);
+						OutputStream stream = s.getOutputStream();
+						String str = "hello" + port;
+						stream.write(str.getBytes("UTF-8"));
+						stream.close();
+
+					} catch (UnknownHostException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					} finally {
+						System.out.println("close client socket");
+						try {
+							s.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+
+					try {
+						Thread.currentThread().sleep(16000);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+
+					break;
+
 				}
-				
-			}}).start();
-		
+
+			}
+		}).start();
 
 	}
-	
-	static void testServerSocketChannel()
-	{
-		Selector selector = null;
-		
-		ServerSocketChannel channel1 = null;
-		ServerSocketChannel channel2 = null;
-		
+
+	static void testSocketChannel() {
 		try {
-			selector = Selector.open();
-			
+			SocketChannel sc = SocketChannel.open();
+
+			sc.configureBlocking(false);
+			sc.connect(new InetSocketAddress("localhost", 90));
+
+			while (true) {
+				System.out.println("loop");
+				if (sc.finishConnect()) {
+					System.out.println("finishConnect()");
+					break;
+				}
+			}
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+	}
+
+}
+
+
+class MyServerSocketChannel implements Runnable {
+
+	@Override
+	public void run() {
+		Selector selector = null;
+
+		ServerSocketChannel channel1 = null;
+		ServerSocketChannel channel2 = null;
+
+		try {
+			selector = Selector.open();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		try {
 			channel1 = ServerSocketChannel.open();
 			channel1.configureBlocking(false);
 			ServerSocket ss1 = channel1.socket();
 			ss1.bind(new InetSocketAddress(90));
-			
+
 			channel2 = ServerSocketChannel.open();
 			ServerSocket ss2 = channel2.socket();
 			channel2.configureBlocking(false);
 			ss2.bind(new InetSocketAddress(91));
-			
+
 			// register
 			channel1.register(selector, SelectionKey.OP_ACCEPT);
 			channel2.register(selector, SelectionKey.OP_ACCEPT);
-			
-			while(true)
-			{
+
+			while (true) {
 				System.out.println("using select blocking ...");
 				selector.select(); // blocing until find one event
 				Iterator iter = selector.selectedKeys().iterator();
-					while(iter.hasNext())
-					{
-						SelectionKey key = (SelectionKey)iter.next();
-						iter.remove();
-						
-						if(key.isValid()==false)
-						{
-							continue;
-						}
-						
-						System.out.println(key.channel().toString());
-						if(key.isAcceptable())
-						{
-							// 变成了[connected local=/127.0.0.1:90 remote=/127.0.0.1:13441]
-							ServerSocketChannel ssc = (ServerSocketChannel)key.channel();
-							// 处理 accept
-							SocketChannel client = ssc.accept();
-							client.configureBlocking(false);
-							client.register(selector, SelectionKey.OP_READ|SelectionKey.OP_WRITE); // Register Read
-							
-						}
-						else if(key.isReadable())
-						{
-							System.out.println("can read");
-							
-							SocketChannel client = (SocketChannel)key.channel(); // 这个时候key对应的channel就是SocketChannel
-							
-							ByteBuffer bf = ByteBuffer.allocate(1000);
-							int count = client.read(bf);
-							
-							System.out.println("read count="+count);
-							System.out.println("-->"+new String(bf.array(),"UTF-8"));
-							bf.flip();
-							
-							key.cancel();
-					
-							
-						}
-						else if(key.isWritable())
-						{
-							System.out.println("can write");
-						}
+				while (iter.hasNext()) {
+					SelectionKey key = (SelectionKey) iter.next();
+					iter.remove();
 
+					if (key.isValid() == false) {
+						continue;
 					}
 
-				
-//				try {
-//					Thread.currentThread().sleep(3000);
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
+					System.out.println(key.channel().toString());
+					if (key.isAcceptable()) {
+						// 变成了[connected local=/127.0.0.1:90
+						// remote=/127.0.0.1:13441]
+						ServerSocketChannel ssc = (ServerSocketChannel) key
+								.channel();
+						// 处理 accept
+						SocketChannel client = ssc.accept();
+						client.configureBlocking(false);
+						client.register(selector, SelectionKey.OP_READ
+								| SelectionKey.OP_WRITE); // Register Read
+
+					} else if (key.isReadable()) {
+						System.out.println("can read");
+
+						SocketChannel client = (SocketChannel) key
+								.channel(); // 这个时候key对应的channel就是SocketChannel
+
+						ByteBuffer bf = ByteBuffer.allocate(1000);
+						int count = client.read(bf);
+
+						System.out.println("read count=" + count);
+						System.out.println("-->"
+								+ new String(bf.array(), "UTF-8"));
+						bf.flip();
+
+						key.cancel();
+
+					} else if (key.isWritable()) {
+						System.out.println("can write");
+					}
+
+				}
+
+				// try {
+				// Thread.currentThread().sleep(3000);
+				// } catch (InterruptedException e) {
+				// e.printStackTrace();
+				// }
 			}
 
-			
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	static void startClientConnectionInNewThread(final int port)
-	{
-		new Thread(new Runnable(){
 
-			
-			@Override
-			public void run() {
-				
-	
-				Socket s=null;
-				
-				while(true){
-					
-
-					
-				try {
-					System.out.println("client socket try connect to port "+port);
-					s = new Socket("localhost",port);
-					OutputStream stream = s.getOutputStream();
-					String str="hello"+port;
-					stream.write(str.getBytes("UTF-8"));
-					stream.close();
-					
-					
-				} catch (UnknownHostException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				finally
-				{
-					System.out.println("close client socket");
-					try {
-						s.close();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-				
-				
-				try {
-					Thread.currentThread().sleep(16000);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				break;
-				
-				}
-				
-				
-		
-				
-			}}).start();
-		
-		
-
-	}
-	
-	static void testSocketChannel()
-	{
-		try {
-			SocketChannel sc = SocketChannel.open();
-			
-			sc.configureBlocking(false);
-			sc.connect(new InetSocketAddress("localhost",90));
-			
-			while(true)
-			{
-				System.out.println("loop");
-				if(sc.finishConnect())
-				{
-					System.out.println("finishConnect()");
-					break;
-				}
-			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
 }
