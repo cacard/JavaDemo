@@ -73,13 +73,13 @@ public class SampleAsyncCallBack implements MqttCallback {
 		boolean quietMode 	= false;
 		String action 		= "publish";
 		String topic 		= "";
-		String message 		= "Message from async callback Paho MQTTv3 Java client sample";
+		String message 		= "Hello (callback)";
 		int qos 			= 2;
-		String broker 		= "m2m.eclipse.org";
+		String broker 		= "localhost";
 		int port 			= 1883;
 		String clientId 	= null;
-		String subTopic		= "Sample/#";
-		String pubTopic 	= "Sample/Java/v3";
+		String subTopic		= "licunqing/#"; //by cacard,when IM,using IM id.
+		String pubTopic 	= "licunqing/im";
 		boolean cleanSession = true;			// Non durable subscriptions
 		boolean ssl = false;
 		String password = null;

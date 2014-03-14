@@ -58,7 +58,7 @@ public class Sample implements MqttCallback {
 		boolean quietMode 	= false;
 		String action 		= "publish";
 		String topic 		= "";
-		String message 		= "Message from blocking Paho MQTTv3 Java client sample";
+		String message 		= "Hello";
 		int qos 			= 2;
 		String broker 		= "localhost";
 		int port 			= 1883;

@@ -63,7 +63,7 @@ public class SampleAsyncWait implements MqttCallback {
 		String topic 		= "";
 		String message 		= "Message from async waiter Paho MQTTv3 Java client sample";
 		int qos 			= 2;
-		String broker 		= "m2m.eclipse.org";
+		String broker 		= "localhost";
 		int port 			= 1883;
 		String clientId 	= null;
 		String subTopic		= "Sample/#";
