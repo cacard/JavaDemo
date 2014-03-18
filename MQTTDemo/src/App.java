@@ -2,7 +2,10 @@
  * MQTT Blocking Example
  */
 
+import java.util.UUID;
+
 import org.eclipse.paho.client.mqttv3.MqttException;
+
 import com.cacard.pojo.*;
 
 public class App {
@@ -28,32 +31,25 @@ public class App {
 	
 	public static void main(String[] args)
 	{
-		
-		if(args[0].equals("sub"))
-		{
-			startReceverService();
-		}
-
-		if(args[0].equals("pub"))
-		{
-			startClient("hello,send to licunqing");
-		}
+		startReceverService();
+		startClient("hello,send to licunqing","cid1");
 	}
 	
 	/**
 	 * publisher
 	 * @param msg
 	 */
-	public static void startClient(final String msg)
+	public static void startClient(final String msg,final String cid)
 	{
 		new Thread(new Runnable(){
 
 			public void run() {
 				MyClient sender=null;
 				try {
-					sender = new MyClient(brokeUrl,clientId,cleanSession,quietMode,userName,password);
+					sender = new MyClient(brokeUrl,cid,cleanSession,quietMode,userName,password);
 					
-					sender.publish(pubTopic, qos, msg.getBytes());
+					for(int i=0;i<100000;i++)
+						sender.publish(pubTopic, qos, msg.getBytes());
 					
 				} catch (MqttException e) {
 					e.printStackTrace();
