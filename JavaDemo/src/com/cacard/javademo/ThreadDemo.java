@@ -22,28 +22,52 @@ public class ThreadDemo {
 			}});
 	}
 	
+	private int sum=0;
+	public static int s=0;
+	
+	/**
+	 * 测试 wait/notify，即条件变量
+	 */
 	static void testWait()
 	{
 		
 		final X x = new X();
 		
-		new Thread(new Runnable(){
+		// for sum++
+		Thread t1 = new Thread(new Runnable(){
 
 			@Override
 			public void run() {
-				System.out.println("->t1");
-				x.N();
+				for(int i=0;i<60;i++)
+					x.Add();
 				
-			}}).start();
+			}});
 		
-		new Thread(new Runnable(){
+		
+		// for sum++
+		Thread t2 = new Thread(new Runnable(){
 
 			@Override
 			public void run() {
-				System.out.println("->t2");
-				x.N();// 此处，t2被阻塞等待了5秒钟。被阻塞时，t2也一直轮询t1是否释放锁。如何避免轮询呢？
+				for(int i=0;i<60;i++)
+					x.Add();
 				
-			}}).start();
+			}});
+		
+		// for condition:when sum>=100,stop and print
+		Thread t3 = new Thread(new Runnable(){
+
+			@Override
+			public void run() {
+				x.Clear();
+				
+			}});
+		
+		t3.start();
+		t1.start();
+		t2.start();
+		
+
 	}
 	
 }
@@ -52,29 +76,35 @@ class X
 {
 	public String name;
 	
-	public synchronized void N()
+	// for thread1/thread2 add 
+	public synchronized void Add()
 	{
-		System.out.println("->N()");
-		try {
-			Thread.currentThread().sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(ThreadDemo.s>=100)
+		{
+			System.out.println("Add(),Condition OK.");
+			this.notify();
 		}
-		System.out.println("N()->");
+		else
+		{
+			System.out.println("Add(),Condition not OK,++.");
+			ThreadDemo.s++;
+		}
 	}
 	
-	public synchronized void M()
+	// for condition
+	public synchronized void Clear()
 	{
-		while(true)
+		while(!(ThreadDemo.s>=100))
 		{
+			System.out.println("Clear(),Condition not OK.wait.");
 			try {
-				this.wait();
+				this.wait(); // Thread State is WAITING
+				System.out.println(Thread.currentThread().getState());
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		System.out.println("Clear(),Condition OK. s="+ThreadDemo.s);
 	}
 	
 }
