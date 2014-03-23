@@ -1,101 +1,173 @@
 package com.cacard.javademo;
 
-
 public class ThreadDemo {
 
-	public static void main(String[] args)
-	{
-		testWait();
+	public static void main(String[] args) {
+		testState();
 	}
-	
-	static void testState()
-	{
-		Thread t = new Thread(new MyThread());
+
+	/**
+	 * 线程状态
+	 */
+	static void testState() {
 		
+
+		// ---------------------------------------------
+		// new Thread
+//		Thread t1 = new Thread(); //state: NEW
+//		t1.start(); //state: RUNNABLE
+//		
+//		try {
+//			Thread.sleep(1);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
+//		System.out.println(t1.getState());// state: TERMINATED or RUNNABLE
 		
-		Thread t2 = new Thread(new Runnable(){
-			@Override
-			public void run() {
-				String state = Thread.currentThread().getState().toString();
-				System.out.println(state);
-				
-			}});
+		// --------------------------------------------
+		// runnable thread
+//		Thread t2 = new Thread(new MyRunnableThread());
+//		t2.setName("t2");
+//		System.out.println(t2.getState());
+		
+
+		// sub thread
+		MySubThread t3 = new MySubThread();
+		t3.setName("t3");
+		System.out.println(t3.getState());
+		t3.start();
+		
 	}
-	
-	private int sum=0;
-	public static int s=0;
-	
+
+	// -------------------------------
+	// wait/notify
+	private int sum = 0;
+	public static int s = 0;
+
 	/**
 	 * 测试 wait/notify，即条件变量
 	 */
-	static void testWait()
-	{
-		
+	static void testWait() {
+
 		final X x = new X();
-		
+
 		// for sum++
-		Thread t1 = new Thread(new Runnable(){
+		Thread t1 = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				for(int i=0;i<60;i++)
+				for (int i = 0; i < 60; i++)
 					x.Add();
-				
-			}});
-		
-		
+
+			}
+		});
+
 		// for sum++
-		Thread t2 = new Thread(new Runnable(){
+		Thread t2 = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				for(int i=0;i<60;i++)
+				for (int i = 0; i < 60; i++)
 					x.Add();
-				
-			}});
-		
+
+			}
+		});
+
 		// for condition:when sum>=100,stop and print
-		Thread t3 = new Thread(new Runnable(){
+		Thread t3 = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				x.Clear();
-				
-			}});
-		
+
+			}
+		});
+
 		t3.start();
 		t1.start();
 		t2.start();
-		
 
 	}
-	
+
 }
 
-class X
-{
-	public String name;
+class MyRunnableThread implements Runnable {
+
+	public MyRunnableThread() {
+		String state = Thread.currentThread().getState().toString();
+		System.out.println("[MyRunnableThread ctor]"+state+",name:"+Thread.currentThread().getName());
+	}
 	
-	// for thread1/thread2 add 
-	public synchronized void Add()
+	public void displayState()
 	{
-		if(ThreadDemo.s>=100)
-		{
+		String state = Thread.currentThread().getState().toString();
+		System.out.println("[MyRunnableThread displayState]"+state);
+	}
+
+	@Override
+	public void run() {
+
+		System.out.println("run");
+		while (true) {
+			String state = Thread.currentThread().getState().toString();
+			System.out.println("in run:"+state+",name="+Thread.currentThread().getName());
+
+			try {
+				Thread.currentThread().sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+}
+
+class MySubThread extends Thread
+{
+	public MySubThread()
+	{
+		String state = Thread.currentThread().getState().toString();
+		System.out.println("[MyRunnableThread ctor]"+state+",name:"+Thread.currentThread().getName());
+	}
+	
+	@Override
+	public void run()
+	{
+		System.out.println("run");
+		while (true) {
+			String state = Thread.currentThread().getState().toString();
+			System.out.println("in run:"+state+",name="+Thread.currentThread().getName());
+
+			try {
+				Thread.currentThread().sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+}
+
+
+class X {
+	public String name;
+
+	// for thread1/thread2 add
+	public synchronized void Add() {
+		if (ThreadDemo.s >= 100) {
 			System.out.println("Add(),Condition OK.");
 			this.notify();
-		}
-		else
-		{
+		} else {
 			System.out.println("Add(),Condition not OK,++.");
 			ThreadDemo.s++;
 		}
 	}
-	
+
 	// for condition
-	public synchronized void Clear()
-	{
-		while(!(ThreadDemo.s>=100))
-		{
+	public synchronized void Clear() {
+		while (!(ThreadDemo.s >= 100)) {
 			System.out.println("Clear(),Condition not OK.wait.");
 			try {
 				this.wait(); // Thread State is WAITING
@@ -104,36 +176,7 @@ class X
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Clear(),Condition OK. s="+ThreadDemo.s);
+		System.out.println("Clear(),Condition OK. s=" + ThreadDemo.s);
 	}
-	
-}
 
-class MyThread implements Runnable
-{
-
-	public MyThread()
-	{
-		String state = Thread.currentThread().getState().toString();
-		System.out.println(state);
-	}
-	
-	@Override
-	public void run() {
-
-		while(true)
-		{
-			String state = Thread.currentThread().getState().toString();
-			System.out.println(state);
-			
-			try {
-				Thread.currentThread().sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-	}
-	
 }
