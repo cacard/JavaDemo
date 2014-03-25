@@ -34,7 +34,9 @@ class ConditionMaker implements Runnable {
 			System.out.println("Maker ++ ,="+ConditionDemo.count);
 			if (ConditionDemo.count >= 10) {
 				System.out.println("Maker notify");
-				ConditionDemo.condition.signalAll();//通知其它线程，条件满足。释放当前锁
+				ConditionDemo.condition.signal();//通知其它线程，条件满足。需要手动释放锁
+				ConditionDemo.lock.unlock();
+				System.out.println("Maker notify over");
 				return;
 			}
 			ConditionDemo.lock.unlock();
@@ -59,7 +61,7 @@ class ConditionWaiter implements Runnable {
 		ConditionDemo.lock.lock();// 获取锁后，才可操作其Condition
 		while (ConditionDemo.count < 10) {
 			try {
-				System.out.println("->Waiter await.)");
+				System.out.println("->Waiter await.");
 				ConditionDemo.condition.await();// 条件不满足，释放当前锁，等待信号（一旦获取信号，重新获得锁，并接着向下执行）
 			
 				System.out.println("->Waiter's condition ok.and count="+ConditionDemo.count);
