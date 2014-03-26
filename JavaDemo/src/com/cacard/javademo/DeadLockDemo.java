@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class DeadLockDemo {
 	
-	private static Lock lock = new ReentrantLock();
+	private static ReentrantLock lock = new ReentrantLock();
 
 	public static void main(String[] args)
 	{
@@ -22,6 +22,8 @@ public class DeadLockDemo {
 		System.out.println("lock 1st");
 		lock.lock();
 		System.out.println("lock 2st");
+		System.out.println("isHeldByCurrentThread:"+lock.isHeldByCurrentThread());
+		System.out.println("getHoldCount:"+lock.getHoldCount());
 		lock.unlock();
 	}
 	
