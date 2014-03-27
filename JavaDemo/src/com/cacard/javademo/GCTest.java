@@ -1,0 +1,19 @@
+package com.cacard.javademo;
+
+public class GCTest {
+
+	public static void main(String[] args)
+	{
+		
+	}
+	
+	static void testGC()
+	{
+		final int _1M = 1024;
+		byte[] b = new byte[_1M];
+		
+		//System.gc();
+	}
+	
+	
+}
