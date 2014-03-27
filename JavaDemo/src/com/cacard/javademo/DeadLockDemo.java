@@ -9,7 +9,33 @@ public class DeadLockDemo {
 
 	public static void main(String[] args)
 	{
-		testOneResourceOnThread();
+		Demo0();
+	}
+	
+	/**
+	 * 线程出现异常，会释放锁吗？
+	 */
+	static void Demo0()
+	{
+		Thread t = new Thread(new Runnable(){
+
+			@Override
+			public void run() {
+				lock.lock();
+				
+			}});
+		
+		t.start();
+		
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		System.out.println(lock.isLocked());
 	}
 	
 	/**
