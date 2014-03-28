@@ -30,6 +30,7 @@ public class PerformanceTest {
 				while(true)
 				{
 					byte[] b = new byte[_1M];// 新生对象
+					b=null;
 					writeMsg("created a byte array.");
 					int i=old.length;// 对常驻对象引用，表示不要被GC
 					
