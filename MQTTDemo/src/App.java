@@ -16,7 +16,7 @@ public class App {
 	static String topic 		= "";
 	static String message 		= "Hello";
 	static int qos 			= 1;
-	static String broker 		= "localhost";
+	static String broker 		= "10.32.24.52";
 	static int port 			= 1883;
 	static String clientId 	= "someid"; // 同一台机器时候 pub/sub 的 clientid要不同
 	static String clientId2 = "someid2";
