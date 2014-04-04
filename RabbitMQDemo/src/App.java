@@ -33,7 +33,7 @@ public class App {
 			public void run() {
 				try {
 					ConnectionFactory factory = new ConnectionFactory();
-					factory.setHost("localhost");
+					factory.setHost("10.32.24.52");
 					Connection connection = factory.newConnection();
 					Channel channel = connection.createChannel();
 
@@ -45,6 +45,9 @@ public class App {
 					while (true) {
 						QueueingConsumer.Delivery delivery = consumer
 								.nextDelivery(); // 阻塞，直到接收到一条消息
+						
+			
+						
 						String message = new String(delivery.getBody());
 						System.out.println(" [x] Received '" + message + "'");
 					}
@@ -64,7 +67,7 @@ public class App {
 
 				try {
 					ConnectionFactory factory = new ConnectionFactory();
-					factory.setHost("localhost");
+					factory.setHost("10.32.24.52");
 					Connection connection = (Connection) factory
 							.newConnection();
 					Channel channel = connection.createChannel();

@@ -2,8 +2,10 @@
  * MQTT Blocking Example
  */
 
+import java.util.Date;
 import java.util.UUID;
 
+import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import com.cacard.pojo.*;
@@ -18,11 +20,16 @@ public class App {
 	static int qos 			= 1;
 	static String broker 		= "10.32.24.52";
 	static int port 			= 1883;
-	static String clientId 	= "someid"; // 同一台机器时候 pub/sub 的 clientid要不同
+	static String clientId 	= "someid";
 	static String clientId2 = "someid2";
-	static String subTopic		= "im/licunqing/#";
-	static String pubTopic 	= "im/licunqing";
-	static boolean cleanSession = true;			// Non durable subscriptions
+	
+	static String pubClientId="__client_id_p";
+	static String subClientId="sub_client_id";
+	static String commonClientId="__cid2__";
+	
+	static String subTopic		= "TalkMessage/#";
+	static String pubTopic 	= "TalkMessage/licunqing";
+	static boolean cleanSession = false;			// if false,means can durable 
 	static boolean ssl = false;
 	static String password = null;
 	static String userName = null;
@@ -31,25 +38,38 @@ public class App {
 	
 	public static void main(String[] args)
 	{
-		startReceverService();
-		startClient("hello,send to licunqing","cid1");
+		//startReceverService();
+		startClient("hello,send to licunqing");
 	}
 	
 	/**
 	 * publisher
 	 * @param msg
 	 */
-	public static void startClient(final String msg,final String cid)
+	public static void startClient(final String msg)
 	{
+		// 先创建一个订阅者，用来在rabbitmq中创建一个queue，这样就可以持久化信息了。
+		
+		
 		new Thread(new Runnable(){
 
 			public void run() {
 				MyClient sender=null;
 				try {
-					sender = new MyClient(brokeUrl,cid,cleanSession,quietMode,userName,password);
 					
-					for(int i=0;i<100000;i++)
-						sender.publish(pubTopic, qos, msg.getBytes());
+					sender = new MyClient(brokeUrl,commonClientId,cleanSession,quietMode,userName,password);
+	
+					
+					for(int i=0;i<10;i++)
+					{
+						sender.publish(pubTopic, qos, (msg+"@"+new Date().getTime()).getBytes());
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 					
 				} catch (MqttException e) {
 					e.printStackTrace();
@@ -67,12 +87,12 @@ public class App {
 
 			public void run() {
 				
-				while(true)
+				//while(true)
 				{
 					System.out.println("[recever listening...]");
 					MyClient sender=null;
 					try {
-						sender = new MyClient(brokeUrl,clientId2,cleanSession,quietMode,userName,password);
+						sender = new MyClient(brokeUrl,commonClientId,cleanSession,quietMode,userName,password);
 						sender.subscribe(subTopic, qos);
 						
 					} catch (MqttException e) {
