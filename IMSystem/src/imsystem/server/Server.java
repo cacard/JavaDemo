@@ -8,6 +8,9 @@ import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Server¶Ë£¬AIO
+ */
 public class Server {
 
 	private int port;
@@ -79,6 +82,9 @@ public class Server {
 		System.out.println("->" + sb.toString());
 	}
 
+	/**
+	 * Í£Ö¹Server¶Ë
+	 */
 	public void Stop() {
 
 	}
