@@ -100,7 +100,9 @@ public class AppSocket {
 						
 						// write data
 						OutputStream stream = s.getOutputStream();
-						stream.write("Hello".getBytes("UTF-8"));
+						//stream.write("Hello".getBytes("UTF-8"));
+						// write empty
+						stream.write(new byte[0]);
 						
 					} catch (Exception e) {
 						e.printStackTrace();
