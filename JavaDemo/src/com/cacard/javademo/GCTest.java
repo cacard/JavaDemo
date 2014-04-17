@@ -4,7 +4,7 @@ public class GCTest {
 
 	public static void main(String[] args)
 	{
-		
+		testGC();
 	}
 	
 	static void testGC()
