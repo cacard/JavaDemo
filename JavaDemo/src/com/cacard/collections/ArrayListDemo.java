@@ -1,3 +1,12 @@
+/**
+ * ArrayList相关测试
+ * 
+ * 1 ArrayList内部原理
+ * 2 如何实现线程安全的ArrayList
+ * 3 迭代器与线程安全，什么是fail-fast
+ */
+
+
 package com.cacard.collections;
 
 import java.util.ArrayList;
@@ -10,6 +19,25 @@ public class ArrayListDemo {
 		testIterator();
 	}
 	
+	/**
+	 * ArrayList的线程安全实现
+	 */
+	private static void testThreadSafe()
+	{
+		// #1 手动实现
+		
+		
+		// #2 同步包装器
+		
+		// #3 使用并发库里面的数据结构（J.U.C，Java.Util.Concurrent）
+		
+		
+	}
+	
+	/**
+	 * 迭代器测试
+	 * 迭代是“非线程安全”的，若其他线程修改集合，引发异常。
+	 */
 	private static 
 	void testIterator()
 	{
@@ -38,6 +66,10 @@ public class ArrayListDemo {
 		
 	}
 	
+	/**
+	 * 打印
+	 * @param list
+	 */
 	private static
 	void print(ArrayList<String> list)
 	{
