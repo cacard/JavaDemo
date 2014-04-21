@@ -16,6 +16,7 @@ public class GenericType {
 		boolean b3 = new GenericClass1<SomeClass>() instanceof GenericClass1<?>; // true
 		//boolean b4 = new GenericClass1<SomeClass>() instanceof GenericClass1<SomeClass>; // instanceof 右侧不允许具体泛型，因为运行期擦除
 		
+		GenericClass1<SomeClass> t = new GenericClass1<>();
 	}
 	
 	/**
