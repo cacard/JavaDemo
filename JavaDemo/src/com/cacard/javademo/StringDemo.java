@@ -7,11 +7,13 @@
 
 package com.cacard.javademo;
 
+import java.util.ArrayList;
+
 public class StringDemo {
 
 	public static void main(String[] args)
 	{
-		String a = "abc";
+		testAppend();
 	}
 	
 	/**
@@ -45,6 +47,21 @@ public class StringDemo {
 	static void heapString()
 	{
 		String a = new String("abc");
+	}
+	
+	// --------------------------------------
+	// AbstractStringBuilder/StringBuffer/StringBuilder
+	
+
+	static void testAppend()
+	{
+		//String a = null;
+		ArrayList<String> a=null;
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(a);
+		
+		System.out.println(sb.toString());
 	}
 	
 }
