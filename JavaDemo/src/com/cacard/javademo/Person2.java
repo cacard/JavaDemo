@@ -1,16 +1,16 @@
-package com.cacard.pojo;
+package com.cacard.javademo;
 
-public class Person {
+public class Person2 {
 
 	private String name;
 	private int age;
 	
-	public Person()
+	public Person2()
 	{
 		System.out.println("->ctor()");
 	}
 	
-	public Person(String name,int age)
+	public Person2(String name,int age)
 	{
 		System.out.println("->ctor(String name,int age)");
 		this.name=name;
