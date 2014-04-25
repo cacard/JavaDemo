@@ -3,7 +3,7 @@
  * “Ï≥£?÷–∂œ?sleep?
  */
 
-package com.cacard.javademo;
+package com.cacard.threads;
 
 public class LockRelease {
 

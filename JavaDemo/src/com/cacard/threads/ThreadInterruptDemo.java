@@ -2,7 +2,7 @@
  * test thread interrupt
  */
 
-package com.cacard.javademo;
+package com.cacard.threads;
 
 public class ThreadInterruptDemo {
 

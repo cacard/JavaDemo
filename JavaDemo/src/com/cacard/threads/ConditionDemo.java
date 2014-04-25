@@ -4,7 +4,7 @@
  * 其它方法参考 object 的 wait() / notify() 方法
  */
 
-package com.cacard.javademo;
+package com.cacard.threads;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;

@@ -1,4 +1,4 @@
-package com.cacard.javademo;
+package com.cacard.threads;
 
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;

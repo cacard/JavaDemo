@@ -1,4 +1,4 @@
-package com.cacard.javademo;
+package com.cacard.threads;
 
 public class ThreadDemo {
 

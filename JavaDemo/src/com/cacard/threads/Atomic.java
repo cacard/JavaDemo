@@ -4,7 +4,7 @@
  * ABA
  */
 
-package com.cacard.javademo;
+package com.cacard.threads;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicIntegerArray;

@@ -7,7 +7,7 @@
  * Java下的CyclicBarrier意思是“周期性/可复用屏障”
  */
 
-package com.cacard.javademo;
+package com.cacard.threads;
 
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;

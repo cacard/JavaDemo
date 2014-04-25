@@ -2,7 +2,7 @@
  * Concurrent DataStructure Demo
  */
 
-package com.cacard.javademo;
+package com.cacard.concurrentcollections;
 
 import java.util.ArrayList;
 import java.util.Collections;

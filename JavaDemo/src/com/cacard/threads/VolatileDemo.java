@@ -3,7 +3,7 @@
  * 只保证，对volatile的一次写操作对其他线程可见，即每次写操作不依赖于volatile变量本身，则可以看做是线程安全的。
  */
 
-package com.cacard.javademo;
+package com.cacard.threads;
 
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.atomic.AtomicInteger;

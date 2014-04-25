@@ -2,7 +2,7 @@
  * 信号量可以看做一把锁，这把锁可以被n个线程同时获取，n就是“量”。
  */
 
-package com.cacard.javademo;
+package com.cacard.threads;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;

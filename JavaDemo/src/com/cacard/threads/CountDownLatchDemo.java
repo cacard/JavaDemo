@@ -6,7 +6,7 @@
  * 
  */
 
-package com.cacard.javademo;
+package com.cacard.threads;
 
 import java.lang.Thread;
 import java.util.concurrent.CountDownLatch;
