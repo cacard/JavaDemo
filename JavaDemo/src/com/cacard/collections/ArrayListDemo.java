@@ -19,7 +19,7 @@ public class ArrayListDemo {
 	public static void main(String[] args) {
 		// testArrayListProblems();
 		// testThreadSafe();
-		testIterator();
+		testRef();
 	}
 
 	/**
@@ -110,6 +110,7 @@ public class ArrayListDemo {
 	 * 迭代是“非线程安全”的，内部通过fail-fast机制来检查是否在迭代过程中发生修改。无论是单线程下或者多线程下，迭代时被修改均抛出异常
 	 * 单线程下，迭代时通过list.remove()修改，引发异常。可以通过iter.remove()修改
 	 * 多线程下，每个线程通过iter.remove()也可能引发异常
+	 * 注意：非结构性修改不会出现问题（比如修改元素值）
 	 */
 	private static void testIterator() {
 
@@ -121,13 +122,46 @@ public class ArrayListDemo {
 		while (iter.hasNext()) {
 			System.out.println(iter.next());
 			if (j == 3) {
-				list.add("11"); // ConcurrentModificationException
+				//list.add("11"); // ConcurrentModificationException
 				// iter.remove();
 			}
 			j++;
 		}
 		print(list);
 
+	}
+	
+	/**
+	 * 修改元素值，没有failfast问题
+	 */
+	private static void testRef()
+	{
+		ArrayList<Object> l = new ArrayList<>();
+		l.add(new Object());
+		l.add(new Object());
+		
+		for(Object o : l){
+			o=new Object();
+		}
+		
+		
+		final List<String> list = create(10);
+		Iterator<String> iter = list.iterator();
+
+		int j = 0;
+		for (String s : list) {
+			System.out.println(iter.next());
+			if (j == 3) {
+				list.add(new String("1"));
+			}
+			j++;
+		}
+		print(list);
+		
+	}
+	
+	private static void testIteratorUsingThreads()
+	{
 		// 多线程下，多次迭代，使用iter.remove()引发异常
 		final List<String> list2 = create(100);
 		int count = 10;
@@ -159,7 +193,6 @@ public class ArrayListDemo {
 		}
 
 		System.out.println("all joined.");
-
 	}
 
 	/**
