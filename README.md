@@ -8,6 +8,11 @@ Java Language Demo
 * 线程
 * Java语言特性等
 
+####JavaDemo.DesignPattern
+* 观察者模式
+* 模板方法模式（父类提供算法步骤和算法骨架，子类实现算法步骤）
+* 策略模式（依赖注入）
+
 ####NetwrokDemo
 * Blocking Socket
 * Non-Blocing Socket
