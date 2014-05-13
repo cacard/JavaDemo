@@ -2,7 +2,6 @@ Java Language Demo
 ===============
 使用Java写的一些Demo。
 
-###子文件夹
 ####JavaLang
 * 内部类/匿名类
 * 反射/Delegate
