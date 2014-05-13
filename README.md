@@ -40,7 +40,7 @@ Java Language Demo
 * ArrayList线程安全性/fail-fast
 
 ####ALG 数据结构和算法
-* CLH锁定（排队无饥饿自旋锁）
+* CLH锁（排队无饥饿自旋锁,AQS中使用）
 
 ####Netwrok
 * Blocking Socket
