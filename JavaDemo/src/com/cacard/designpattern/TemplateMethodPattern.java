@@ -11,7 +11,6 @@ public class TemplateMethodPattern {
 		Dialog d = new Dialog();
 		d.draw();
 	}
-	
 }
 
 
