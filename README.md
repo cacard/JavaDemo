@@ -1,4 +1,4 @@
-Java Language Demo
+Java Demo
 ===============
 使用Java写的一些Demo。
 
