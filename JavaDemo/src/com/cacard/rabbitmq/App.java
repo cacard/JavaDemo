@@ -2,7 +2,7 @@
  * Rabbit MQ
  */
 
-package com.cacard.rabbitmq
+package com.cacard.rabbitmq;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.ConnectionFactory;
@@ -23,9 +23,8 @@ public class App {
 			startPub();
 			
 			try {
-				Thread.currentThread().sleep(2000);
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

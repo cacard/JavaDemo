@@ -1,7 +1,4 @@
-package cacard.cacard.mqtt;
-/**
- * MQTT Blocking Example
- */
+package com.cacard.mqtt;
 
 import java.util.Date;
 import java.util.UUID;
@@ -9,8 +6,9 @@ import java.util.UUID;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
-import com.cacard.pojo.*;
-
+/**
+ * MQTT Blocking Example
+ */
 public class App {
 
 	// Default settings:
@@ -50,8 +48,6 @@ public class App {
 	public static void startClient(final String msg)
 	{
 		// 先创建一个订阅者，用来在rabbitmq中创建一个queue，这样就可以持久化信息了。
-		
-		
 		new Thread(new Runnable(){
 
 			public void run() {
@@ -103,6 +99,5 @@ public class App {
 				
 			}}).start();
 	}
-	
 	
 }
