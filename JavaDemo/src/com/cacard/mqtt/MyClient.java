@@ -1,4 +1,5 @@
 package com.cacard.mqtt;
+
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.logging.LogManager;
