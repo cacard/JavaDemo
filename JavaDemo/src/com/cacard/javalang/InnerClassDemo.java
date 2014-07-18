@@ -35,7 +35,7 @@ public class InnerClassDemo {
 		staticMethod();
 	}
 	
-	private static void localClass(boolean a){
+	private static void localClass(final boolean a){
 		class MyLocalClass implements MyFace{
 			public void invoke()
 			{
