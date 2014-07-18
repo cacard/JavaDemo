@@ -35,6 +35,15 @@ public class InnerClassDemo {
 		staticMethod();
 	}
 	
+	private static void localClass(boolean a){
+		class MyLocalClass implements MyFace{
+			public void invoke()
+			{
+				System.out.println(a);
+			}
+		}
+	}
+	
 	/**
 	 * 外部类的静态方法必须由外部实例获取到内部实例来访问内部类
 	 */
