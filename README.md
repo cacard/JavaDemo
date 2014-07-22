@@ -1,27 +1,24 @@
 Java Demo
 ===============
-使用Java写的一些Demo。
+Java写的一些Demo。
 
-####JavaLang
-* 内部类/匿名类
-* 反射/Delegate
+#### Java Language
+* inner-class
+* Reflect
 * BigDecimal/BigInteger
-* 泛型
-* 实例方法的Override/静态方法的"new"
-* 递归溢出测试
-* 字符串/字符串驻留
+* Generic
+* ...
 
-####DesignPattern
-* Builder（使用一个专门的对象构造另外一个对象，StringBuilder）
-* FactoryMethod
-* FactorySimple
-* 观察者模式
-* Singleton（线程安全的单例，double-check/静态字段初始化）
-* TemplateMehtod(模板方法模式，父类提供算法步骤和算法骨架，子类实现算法步骤）
-* 策略模式（依赖注入）
+#### Design Pattern
+* Builder
+* Factory Method
+* Factory Simple
+* Observer
+* Singleton
+* Template Mehtod
 
-####Threads/Concurrent
-* AOS,AbstractOwnableSynchronizer
+#### Thread/Concurrent
+* AOS:AbstractOwnableSynchronizer
 * AQS
 * Atomic/AtomicInteger/AtomicReference
 * Barrier
@@ -35,15 +32,13 @@ Java Demo
 * ThreadState
 * ThreadLocal
 * Volatile
+* CLH Lock
 
-####collections 容器/并发容器
-* ArrayList线程安全性/fail-fast
+#### Collections
+* sync ArrayList
+* fail-fast
 
-####ALG 数据结构和算法
-* CLH锁（排队无饥饿自旋锁,AQS中使用）
-
-####Netwrok
+#### Netwrok
 * Blocking Socket
 * Non-Blocing Socket
 * AIO
-
