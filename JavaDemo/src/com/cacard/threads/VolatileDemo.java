@@ -1,6 +1,10 @@
 /*
- * volatile变量非线程安全
+ * volatile
  * 只保证，对volatile的一次写操作对其他线程可见，即每次写操作不依赖于volatile变量本身，则可以看做是线程安全的。
+ * 
+ * volatile语义
+ * 	- 旧JMM:对volatile的写保证其他线程在读时可见
+ *  - 新JMM:增加，volatile变量与其他费volatile变量不发生reorder
  */
 
 package com.cacard.threads;
