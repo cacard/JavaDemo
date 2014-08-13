@@ -1,3 +1,7 @@
+/**
+ * HashCode
+ */
+
 package com.cacard.javalang;
 
 public class HashCodeDemo {

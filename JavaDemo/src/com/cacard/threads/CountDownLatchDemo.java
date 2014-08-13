@@ -1,5 +1,6 @@
 /**
- * 测试CountDownLatch
+ * CountDownLatch
+ * 
  * 作用是，等待一组线程完成一组任务后，再进行某项操作。
  * 比如，多个线程共同计算，把结果放到一个线程安全的数据结构当中。等所有线程都处理完毕后，到达“集结点”，latch.await退出阻塞，执行任务。
  * 注意：latch的等待集结点调用的await，可不要错写成wait（这个是Object的方法）。
@@ -22,8 +23,6 @@ public class CountDownLatchDemo {
 
 /**
  * 调度器
- * 
- * @author licq
  * 
  */
 class Dispatcher implements Runnable {
@@ -61,8 +60,7 @@ class WorkThread implements Runnable {
 	@Override
 	public void run() {
 
-		System.out.println("thread id(" + Thread.currentThread().getId()
-				+ ") do work");
+		System.out.println("thread id(" + Thread.currentThread().getId() + ") do work");
 
 		try {
 			Thread.sleep(1000);

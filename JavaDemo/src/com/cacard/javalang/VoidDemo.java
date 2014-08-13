@@ -9,33 +9,35 @@ package com.cacard.javalang;
 
 public class VoidDemo {
 
-	public static void main(String[] args){
-		
+	public static void main(String[] args) {
+
 		Void v1 = null;
-		//void v2 = null;
-		
+		// void v2 = null;
+
 		m(v1);
 		mustReturnVoid();
 	}
-	
+
 	/**
 	 * 方法参数为Void
+	 * 
 	 * @param m
 	 * @return
 	 */
-	private static void m(Void m){
+	private static void m(Void m) {
 		System.out.println(m);
-		
+
 		return;
 	}
-	
+
 	/**
 	 * 返回类型为void
+	 * 
 	 * @return
 	 */
-	private static Void mustReturnVoid(){
+	private static Void mustReturnVoid() {
 		Void v = null;
 		return v;
 	}
-	
+
 }

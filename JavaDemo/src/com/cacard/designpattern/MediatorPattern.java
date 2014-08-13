@@ -20,84 +20,80 @@
  * 
  */
 
-
-
 package com.cacard.designpattern;
 
 public class MediatorPattern {
 
 	// Client
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		MediatorImpl mediator = new MediatorImpl();
 		ClassMate01 mate1 = new ClassMate01(mediator);
 		ClassMate02 mate2 = new ClassMate02(mediator);
-		mediator.mate1=mate1;
-		mediator.mate2=mate2;
-		
+		mediator.mate1 = mate1;
+		mediator.mate2 = mate2;
+
 		mediator.sendMessage("Hello from mate1", mate1);
 		mediator.sendMessage("Hello from mate2", mate2);
 	}
-	
+
 }
 
 /** 中介者接口，供族类调用 */
-interface IMediator{
-	void sendMessage(String msg,IIClassMate from);
+interface IMediator {
+	void sendMessage(String msg, IIClassMate from);
 }
 
 /** 中介者实现 */
-class MediatorImpl implements IMediator{
+class MediatorImpl implements IMediator {
 
 	// 交互的2个族类
 	public IIClassMate mate1; // 为了方便演示，采用了public
 	public IIClassMate mate2;
-	
-	
+
 	@Override
-	public void sendMessage(String msg,IIClassMate from) {
-		if(from==mate1){
+	public void sendMessage(String msg, IIClassMate from) {
+		if (from == mate1) {
 			mate2.notifyMessage(msg);
-		}else{
+		} else {
 			mate1.notifyMessage(msg);
 		}
 	}
 }
 
 /** 族类接口 */
-interface IIClassMate{
+interface IIClassMate {
 	void notifyMessage(String msg);
 }
 
 /** 族类基类 */
-class ClassMateBase{
+class ClassMateBase {
 	private IMediator mediator;
-	
-	public ClassMateBase(IMediator m){
-		this.mediator=m;
+
+	public ClassMateBase(IMediator m) {
+		this.mediator = m;
 	}
 }
 
 /** 族类实现1 */
-class ClassMate01 extends ClassMateBase implements IIClassMate{
-	
+class ClassMate01 extends ClassMateBase implements IIClassMate {
+
 	public ClassMate01(IMediator m) {
 		super(m);
 	}
 
-	public void notifyMessage(String msg){
-		System.out.println("ClassMate1 get a message:"+msg);
+	public void notifyMessage(String msg) {
+		System.out.println("ClassMate1 get a message:" + msg);
 	}
 }
 
 /** 族类实现2 */
-class ClassMate02 extends ClassMateBase implements IIClassMate{
-	
+class ClassMate02 extends ClassMateBase implements IIClassMate {
+
 	public ClassMate02(IMediator m) {
 		super(m);
 	}
 
-	public void notifyMessage(String msg){
-		System.out.println("ClassMate2 get a message:"+msg);
+	public void notifyMessage(String msg) {
+		System.out.println("ClassMate2 get a message:" + msg);
 	}
 }
-

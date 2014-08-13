@@ -1,36 +1,37 @@
+/**
+ * override/new
+ * 
+ * 
+ */
+
 package com.cacard.javalang;
 
 public class OverrideAndNew {
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		new Sub().M();
-		((Base)new Sub()).M();
+		((Base) new Sub()).M();
 	}
-	
+
 }
 
-class Base
-{
-	public void M(){
+class Base {
+	public void M() {
 		System.out.println("Base->M");
 	}
-	
-	public static void N()
-	{
+
+	public static void N() {
 		System.out.println("Base->N");
 	}
 }
 
-class Sub extends Base
-{
+class Sub extends Base {
 	@Override
-	public void M(){
+	public void M() {
 		System.out.println("Sub->M");
 	}
-	
-	public static void N()
-	{
+
+	public static void N() {
 		System.out.println("Sub->N");
 	}
 }

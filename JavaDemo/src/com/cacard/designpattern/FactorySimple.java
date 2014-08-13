@@ -10,32 +10,32 @@ package com.cacard.designpattern;
 
 public class FactorySimple {
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		// in Client
 		IProduct p = ProductFactory.createProduct("B");
 	}
-	
+
 }
 
-interface IProduct{
-	
+interface IProduct {
+
 }
 
-class ProductA implements IProduct{
-	
+class ProductA implements IProduct {
+
 }
 
-class ProductB implements IProduct{
-	
+class ProductB implements IProduct {
+
 }
 
 /** π§≥ß¿‡ */
-class ProductFactory{
-	public static IProduct createProduct(String productType){
-		if(productType.equals("A")){
+class ProductFactory {
+	public static IProduct createProduct(String productType) {
+		if (productType.equals("A")) {
 			return new ProductA();
 		}
-		if(productType.equals("B")){
+		if (productType.equals("B")) {
 			return new ProductB();
 		}
 		return null;

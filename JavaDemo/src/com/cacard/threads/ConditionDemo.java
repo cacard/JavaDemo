@@ -14,14 +14,13 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ConditionDemo {
 
 	public static int count = 0;// 需要同步
-	public static Lock lock = new ReentrantLock();//锁
-	public static Condition condition = lock.newCondition();//锁对应的条件
+	public static Lock lock = new ReentrantLock();// 锁
+	public static Condition condition = lock.newCondition();// 锁对应的条件
 
 	public static void main(String[] args) {
 		new Thread(new ConditionWaiter()).start();
 		new Thread(new ConditionMaker()).start();
 	}
-
 }
 
 // 条件制造者
@@ -32,10 +31,10 @@ class ConditionMaker implements Runnable {
 		for (int i = 0; i < 11; i++) {
 			ConditionDemo.lock.lock();
 			ConditionDemo.count++;
-			System.out.println("Maker ++ ,="+ConditionDemo.count);
+			System.out.println("Maker ++ ,=" + ConditionDemo.count);
 			if (ConditionDemo.count >= 10) {
 				System.out.println("Maker notify");
-				ConditionDemo.condition.signal();//通知其它线程，条件满足。需要手动释放锁
+				ConditionDemo.condition.signal();// 通知其它线程，条件满足。需要手动释放锁
 				ConditionDemo.lock.unlock();
 				System.out.println("Maker notify over");
 				return;
@@ -64,8 +63,8 @@ class ConditionWaiter implements Runnable {
 			try {
 				System.out.println("->Waiter await.");
 				ConditionDemo.condition.await();// 条件不满足，释放当前锁，等待信号（一旦获取信号，重新获得锁，并接着向下执行）
-			
-				System.out.println("->Waiter's condition ok.and count="+ConditionDemo.count);
+
+				System.out.println("->Waiter's condition ok.and count=" + ConditionDemo.count);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

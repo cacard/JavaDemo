@@ -21,9 +21,9 @@ import com.cacard.helper.*;
 public class SimpleNoBlocingSocketChannel {
 
 	public static void main(String[] args) {
-		
+
 		startNoBlockingServerChannel();
-		
+
 		ThreadHelper.TrySleep(5000);
 
 		for (int i = 0; i < 10; i++) {
@@ -31,7 +31,7 @@ public class SimpleNoBlocingSocketChannel {
 			ThreadHelper.TrySleep(5000);
 		}
 	}
-	
+
 	/**
 	 * 阻塞Socket调用ServerSocketChannel
 	 */
@@ -45,7 +45,7 @@ public class SimpleNoBlocingSocketChannel {
 				try {
 					System.out.println("[client]start a client socket:");
 					s = new Socket("127.0.0.1", 90);
-					
+
 					// write data
 					OutputStream stream = s.getOutputStream();
 					stream.write("Hello".getBytes("UTF-8"));
@@ -63,7 +63,7 @@ public class SimpleNoBlocingSocketChannel {
 			}
 		}).start();
 	}
-	
+
 	/**
 	 * No-Blocking 客户端，使用輪詢
 	 */
@@ -74,19 +74,16 @@ public class SimpleNoBlocingSocketChannel {
 			public void run() {
 				SocketChannel s = null;
 				try {
-					
-					
+
 					System.out.println("[client]start a client socket:");
 					s = SocketChannel.open();
 					s.configureBlocking(false);
 					s.connect(new InetSocketAddress("127.0.0.1", 90));
 
-					while(true)
-					{
-						if(s.finishConnect())
-						{
+					while (true) {
+						if (s.finishConnect()) {
 							System.out.println("[client]connected...");
-							ByteBuffer src=ByteBuffer.allocate(200);
+							ByteBuffer src = ByteBuffer.allocate(200);
 							src.put("Hello".getBytes("UTF-8"));
 							src.flip();
 							s.write(src);
@@ -109,7 +106,6 @@ public class SimpleNoBlocingSocketChannel {
 		}).start();
 	}
 
-
 	/**
 	 * No-Blocing 服务器
 	 */
@@ -131,38 +127,34 @@ public class SimpleNoBlocingSocketChannel {
 					serverSocketChannel.socket().bind(new InetSocketAddress(90));
 
 					// register to selector
-					serverSocketChannel.register(selector,
-							SelectionKey.OP_ACCEPT);
+					serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
 					// 轮询selector
 					while (true) {
-						System.out
-								.println("[server] Selector select and blocking ...");
+						System.out.println("[server] Selector select and blocking ...");
 						selector.select();// blocking,wait until 1 event
 
-						Set<SelectionKey> keys = selector.selectedKeys();// not .keys()
+						Set<SelectionKey> keys = selector.selectedKeys();// not
+																			// .keys()
 						Iterator iter = keys.iterator();
 
 						while (iter.hasNext()) {
-							SelectionKey key = (SelectionKey)iter.next();
+							SelectionKey key = (SelectionKey) iter.next();
 							iter.remove();
 
 							// 以下判断最好使用 if else
 							if (key.isValid() == false) {/* 如果key已经被取消，则返回 */
 								continue;
 							} else if (key.isAcceptable()) {
-								SocketChannel client = ((ServerSocketChannel) key
-										.channel()).accept();
+								SocketChannel client = ((ServerSocketChannel) key.channel()).accept();
 								client.configureBlocking(false); // 继续设置为非阻塞模式（也可以是阻塞，直接处理）
 								client.register(selector, SelectionKey.OP_READ);// 继续向Selector注册
 							} else if (key.isReadable()) {
-								SocketChannel client = (SocketChannel) key
-										.channel();
+								SocketChannel client = (SocketChannel) key.channel();
 
 								ByteBuffer bf = ByteBuffer.allocate(1000);
 								int count = client.read(bf);
-								System.out.println("-->"
-										+ new String(bf.array(), "UTF-8"));
+								System.out.println("-->" + new String(bf.array(), "UTF-8"));
 								// bf.flip();
 								key.cancel();
 							} else if (key.isWritable()) {

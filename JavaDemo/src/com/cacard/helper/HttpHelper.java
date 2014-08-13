@@ -1,4 +1,5 @@
 /**
+ * HTTP请求包装类
  * author:cacard
  */
 
@@ -31,13 +32,13 @@ public class HttpHelper {
 
 	/**
 	 * GET请求
+	 * 
 	 * @param url
 	 * @return 响应结果
 	 * @throws ClientProtocolException
 	 * @throws IOException
 	 */
-	public static String Get(String url) throws ClientProtocolException,
-			IOException {
+	public static String Get(String url) throws ClientProtocolException, IOException {
 		String result = null;
 
 		HttpClient client = new DefaultHttpClient();
@@ -64,14 +65,15 @@ public class HttpHelper {
 
 	/**
 	 * Post数据
+	 * 
 	 * @param url
-	 * @param map 数据对
+	 * @param map
+	 *            数据对
 	 * @return 响应结果
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	public static String Post(String url, LinkedHashMap<String, String> map)
-			throws ParseException, IOException {
+	public static String Post(String url, LinkedHashMap<String, String> map) throws ParseException, IOException {
 		String result = null;
 
 		HttpClient client = new DefaultHttpClient();
@@ -79,12 +81,12 @@ public class HttpHelper {
 		post.addHeader(CONTENT_TYPE_HEADER, CONTENT_TYPE);
 
 		String json = ConvertMapToJsonString(map);
-		StringEntity se = new StringEntity(json,"UTF-8");
+		StringEntity se = new StringEntity(json, "UTF-8");
 		post.setEntity(se);
 
 		try {
 			HttpResponse response = client.execute(post);
-			result = EntityUtils.toString(response.getEntity()/*,"UTF-8"*/);
+			result = EntityUtils.toString(response.getEntity()/* ,"UTF-8" */);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -95,8 +97,7 @@ public class HttpHelper {
 	/**
 	 * Map -> JsonString (Using Jackson)
 	 */
-	public static String ConvertMapToJsonString(
-			LinkedHashMap<String, String> map) {
+	public static String ConvertMapToJsonString(LinkedHashMap<String, String> map) {
 		if (map == null || map.keySet().size() == 0) {
 			return "{}";
 		}
@@ -112,7 +113,5 @@ public class HttpHelper {
 
 		return jsonString;
 	}
-
-
 
 }

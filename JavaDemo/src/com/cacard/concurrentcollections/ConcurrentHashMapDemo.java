@@ -1,8 +1,5 @@
 /*
- * 		ConcurrentHashMap
- * 
- * 
- * 
+ * 		ConcurrentHashMap≤‚ ‘
  */
 
 package com.cacard.concurrentcollections;
@@ -34,29 +31,21 @@ public class ConcurrentHashMapDemo {
 			}
 		});
 
-		// iter
-		for (Iterator<Entry<String, String>> iter = cHashMap.entrySet()
-				.iterator(); iter.hasNext();) {
-
+		for (Iterator<Entry<String, String>> iter = cHashMap.entrySet().iterator(); iter.hasNext();) {
 			Entry<String, String> item = iter.next();
 			if (item.getKey().equals("1")) {
 				t.start();
 			}
-
 			System.out.println(iter.next().toString());
 		}
-		
+
 		print(cHashMap);
 	}
 
 	static void print(ConcurrentHashMap<String, String> map) {
-		// iter
-		for (Iterator<Entry<String, String>> iter = map.entrySet().iterator(); iter
-				.hasNext();) {
-
+		for (Iterator<Entry<String, String>> iter = map.entrySet().iterator(); iter.hasNext();) {
 			System.out.println(iter.next().toString());
 		}
-
 	}
 
 }

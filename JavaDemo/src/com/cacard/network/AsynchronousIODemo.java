@@ -70,31 +70,25 @@ public class AsynchronousIODemo {
 			@Override
 			public void run() {
 				try {
-					final AsynchronousServerSocketChannel server = AsynchronousServerSocketChannel
-							.open().bind(new InetSocketAddress(90));
+					final AsynchronousServerSocketChannel server = AsynchronousServerSocketChannel.open().bind(new InetSocketAddress(90));
 
 					System.out.println("[server]accepting...");
-					server.accept(
-							null/* attachment */,
-							new CompletionHandler<AsynchronousSocketChannel, Void>() {
+					server.accept(null/* attachment */, new CompletionHandler<AsynchronousSocketChannel, Void>() {
 
-								@Override
-								public void completed(
-										AsynchronousSocketChannel result,
-										Void attachment) {
-									// accepting again
-									server.accept(null, this);
+						@Override
+						public void completed(AsynchronousSocketChannel result, Void attachment) {
+							// accepting again
+							server.accept(null, this);
 
-									handlerAsynchronousSocketChannel(result);
-								}
+							handlerAsynchronousSocketChannel(result);
+						}
 
-								@Override
-								public void failed(Throwable exc,
-										Void attachment) {
-									exc.printStackTrace();
+						@Override
+						public void failed(Throwable exc, Void attachment) {
+							exc.printStackTrace();
 
-								}
-							});
+						}
+					});
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -105,9 +99,7 @@ public class AsynchronousIODemo {
 
 	}
 
-
-	public static void handlerAsynchronousSocketChannel(
-			AsynchronousSocketChannel ch) {
+	public static void handlerAsynchronousSocketChannel(AsynchronousSocketChannel ch) {
 		StringBuilder sb = new StringBuilder();
 
 		ByteBuffer bfForWrite = ByteBuffer.allocate(2);

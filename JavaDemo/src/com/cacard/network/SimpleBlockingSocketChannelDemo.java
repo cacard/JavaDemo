@@ -18,9 +18,9 @@ public class SimpleBlockingSocketChannelDemo {
 
 	public static void main(String[] args) {
 		startBlockingServerChannel();
-		
+
 		try {
-			Thread.currentThread().sleep(3000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -41,7 +41,7 @@ public class SimpleBlockingSocketChannelDemo {
 				try {
 					System.out.println("[client]start a client socket:");
 					s = new Socket("127.0.0.1", 90);
-					
+
 					// write data
 					OutputStream stream = s.getOutputStream();
 					stream.write("Hello".getBytes("UTF-8"));
@@ -59,7 +59,7 @@ public class SimpleBlockingSocketChannelDemo {
 			}
 		}).start();
 	}
-	
+
 	/**
 	 * 阻塞SocketChanel调用ServerSocketChannel
 	 */
@@ -73,17 +73,17 @@ public class SimpleBlockingSocketChannelDemo {
 				try {
 					System.out.println("[client]start a client socket:");
 					s = SocketChannel.open();
-					//s.configureBlocking(true);
+					// s.configureBlocking(true);
 					System.out.println("[client]try connect...");
 					s.connect(new InetSocketAddress("127.0.0.1", 90));
-		
+
 					System.out.println("[client]after connect");
 
 					ByteBuffer src = ByteBuffer.allocate(20);
 					src.put("Hello".getBytes("UTF-8"));
-					
+
 					src.flip();// !为读准备好
-					
+
 					s.write(src);
 
 				} catch (Exception e) {
@@ -125,7 +125,7 @@ public class SimpleBlockingSocketChannelDemo {
 						String result = new String(dst.array(), "UTF-8");
 
 						System.out.println("->" + result);
-						
+
 						serverSocketChannel.close();
 					}
 
@@ -136,11 +136,5 @@ public class SimpleBlockingSocketChannelDemo {
 			}
 		}).start();
 	}
-	
-	
-	
-	
 
-	
-	
 }

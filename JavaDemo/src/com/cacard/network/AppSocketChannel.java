@@ -24,27 +24,22 @@ import java.util.TreeSet;
 public class AppSocketChannel {
 
 	public static void main(String[] args) {
-
 		new Thread(new MyServerSocketChannel()).start();
-
 		startClient(90);
-
 	}
 
-	
+	/**
+	 * start client
+	 */
 	static void startClient(final int port) {
+		
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
-
 				Socket s = null;
-
-				while (true) {
-
+				while (true) {	// 循环向server发出连接请求
 					try {
-						System.out.println("client socket try connect to port "
-								+ port);
+						System.out.println("client socket try connect to port " + port);
 						s = new Socket("localhost", port);
 						OutputStream stream = s.getOutputStream();
 						String str = "hello" + port;
@@ -65,14 +60,12 @@ public class AppSocketChannel {
 					}
 
 					try {
-						Thread.currentThread().sleep(16000);
+						Thread.sleep(16000);
 					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-
+					
 					break;
-
 				}
 
 			}
@@ -101,7 +94,6 @@ public class AppSocketChannel {
 	}
 
 }
-
 
 class MyServerSocketChannel implements Runnable {
 
@@ -150,26 +142,23 @@ class MyServerSocketChannel implements Runnable {
 					if (key.isAcceptable()) {
 						// 变成了[connected local=/127.0.0.1:90
 						// remote=/127.0.0.1:13441]
-						ServerSocketChannel ssc = (ServerSocketChannel) key
-								.channel();
+						ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
 						// 处理 accept
 						SocketChannel client = ssc.accept();
 						client.configureBlocking(false);
-						client.register(selector, SelectionKey.OP_READ
-								| SelectionKey.OP_WRITE); // Register Read
+						client.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE); // Register
+																									// Read
 
 					} else if (key.isReadable()) {
 						System.out.println("can read");
 
-						SocketChannel client = (SocketChannel) key
-								.channel(); // 这个时候key对应的channel就是SocketChannel
+						SocketChannel client = (SocketChannel) key.channel(); // 这个时候key对应的channel就是SocketChannel
 
 						ByteBuffer bf = ByteBuffer.allocate(1000);
 						int count = client.read(bf);
 
 						System.out.println("read count=" + count);
-						System.out.println("-->"
-								+ new String(bf.array(), "UTF-8"));
+						System.out.println("-->" + new String(bf.array(), "UTF-8"));
 						bf.flip();
 
 						key.cancel();
@@ -180,11 +169,6 @@ class MyServerSocketChannel implements Runnable {
 
 				}
 
-				// try {
-				// Thread.currentThread().sleep(3000);
-				// } catch (InterruptedException e) {
-				// e.printStackTrace();
-				// }
 			}
 
 		} catch (IOException e) {

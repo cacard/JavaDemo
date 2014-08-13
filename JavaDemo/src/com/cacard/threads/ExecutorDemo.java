@@ -1,5 +1,7 @@
 /*
- * Executor是一个执行器接口
+ * Executor
+ * 
+ * 是一个执行器接口
  * 其具体实现可以多种多样：
  * -> 串行执行器
  * -> 并行执行器
@@ -26,7 +28,7 @@ public class ExecutorDemo {
 				public void run() {
 					System.out.println("runing @ "+Thread.currentThread().getId());
 					try {
-						Thread.currentThread().sleep(3000);
+						Thread.sleep(3000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

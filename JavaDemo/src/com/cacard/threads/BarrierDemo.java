@@ -5,6 +5,8 @@
  * 更多参考 MemoryBarrier/Barrier
  * 
  * Java下的CyclicBarrier意思是“周期性/可复用屏障”
+ * 
+ * 应用场景：多个任务在任意一个都完成的情况下执行另外一个任务。
  */
 
 package com.cacard.threads;
@@ -17,33 +19,35 @@ import java.util.concurrent.Executors;
 public class BarrierDemo {
 
 	public static void main(String[] args) {
-		anotherDemo();
+		simpleDemo();
 	}
 
-	private void simpleDemo() {
-		final CyclicBarrier barrier = new CyclicBarrier(5);
+	private static void simpleDemo() {
+		final CyclicBarrier barrier = new CyclicBarrier(5/* 参与的线程数量 */);
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 5/* 若线程<CyclicBarrier集结数量，则永不会到达集结点 */; i++) {
+			final int j = i;
 			new Thread(new Runnable() {
-
 				@Override
 				public void run() {
-					System.out.println("thread"
-							+ Thread.currentThread().getId());
+					System.out.println("thread" + j + " start running...");
+
+					// 休眠一段时间
 					try {
-						Thread.sleep(1000);
+						Thread.sleep(1000 + j * 300);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					// ...
+
 					try {
-						System.out.println("await,ready count = "
-								+ barrier.await()); // 阻塞等待其它线程运行完毕
+						barrier.await(); // 通知CyclicBarrier当前任务已经完成，并阻塞当前线程，直到CyclicBarrier接收到某个数量的完成任务。
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					} catch (BrokenBarrierException e) {
 						e.printStackTrace();
 					}
+
+					System.out.println("thread" + j + " end await,continue...");
 
 				}
 			}).start();
@@ -60,15 +64,14 @@ public class BarrierDemo {
 	private static void anotherDemo() {
 		final int threadCount = 5;
 		final int loopCount = 3;
-		final CyclicBarrier barrier = new CyclicBarrier(threadCount,
-				new Runnable() {
+		final CyclicBarrier barrier = new CyclicBarrier(threadCount, new Runnable() {
 
-					@Override
-					public void run() {
-						System.out.println("barrier is over and loop=" + loop);
-						loop++;
-					}
-				});
+			@Override
+			public void run() {
+				System.out.println("barrier is over and loop=" + loop);
+				loop++;
+			}
+		});
 
 		ExecutorService pool = Executors.newFixedThreadPool(threadCount);
 		for (int j = 0; j < loopCount; j++) {
@@ -77,10 +80,7 @@ public class BarrierDemo {
 
 					@Override
 					public void run() {
-						System.out.println("thread"
-								+ Thread.currentThread().getId()
-								+ " running.already waiting count="
-								+ barrier.getNumberWaiting());
+						System.out.println("thread" + Thread.currentThread().getId() + " running.already waiting count=" + barrier.getNumberWaiting());
 						try {
 							barrier.await();
 						} catch (Exception e) {

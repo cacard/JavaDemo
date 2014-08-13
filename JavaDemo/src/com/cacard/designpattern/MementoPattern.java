@@ -7,32 +7,31 @@ package com.cacard.designpattern;
 
 public class MementoPattern {
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		Originator o = new Originator(1);
 		Memento m = o.saveSate();
 		o.setState(2);
 		o.restoreFromMemento(m);
 		System.out.println(o.getState());
 	}
-	
+
 }
 
-
 /* Originator */
-class Originator{
+class Originator {
 	private int state;
-	
-	public Originator(int state){
+
+	public Originator(int state) {
 		this.setState(state);
 	}
-	
+
 	/* ±£´æ×´Ì¬µ½±¸ÍüÂ¼ */
-	public Memento saveSate(){
+	public Memento saveSate() {
 		return new Memento(this.getState());
 	}
-	
+
 	/* ´Ó±¸ÍüÂ¼»Ö¸´ */
-	public void restoreFromMemento(Memento m){
+	public void restoreFromMemento(Memento m) {
 		this.setState(m.getState());
 	}
 
@@ -46,14 +45,14 @@ class Originator{
 }
 
 /* Memento */
-class Memento{
+class Memento {
 	private int state;
-	
-	public Memento(int s){
-		this.state=s;
+
+	public Memento(int s) {
+		this.state = s;
 	}
-	
-	public int getState(){
+
+	public int getState() {
 		return this.state;
 	}
 }

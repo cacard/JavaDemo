@@ -4,7 +4,6 @@
  * 
  */
 
-
 package com.cacard.javalang;
 
 import java.util.ArrayList;

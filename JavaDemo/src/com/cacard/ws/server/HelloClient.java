@@ -6,13 +6,12 @@ import javax.naming.NamingException;
 
 public class HelloClient {
 
-	public static void main(String[] args) throws NamingException,RemoteException
-	{
+	public static void main(String[] args) throws NamingException, RemoteException {
 		HelloService s = new HelloService();
 		Hello port = s.getPort(Hello.class); // proxy
-		
+
 		String result = port.sayHello("world");
 		System.out.println(result);
 	}
-	
+
 }

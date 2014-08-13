@@ -7,21 +7,25 @@ package com.cacard.designpattern;
 
 public class TemplateMethodPattern {
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		Dialog d = new Dialog();
 		d.draw();
 	}
 }
 
+class View {
 
-class View{
-	
-	protected void beforeDraw(){}
-	protected void drawing(){}
-	protected void afterDraw(){}
-	
+	protected void beforeDraw() {
+	}
+
+	protected void drawing() {
+	}
+
+	protected void afterDraw() {
+	}
+
 	/* templete method ： 用来做算法的骨架 */
-	public void draw(){
+	public void draw() {
 		// 步骤1
 		this.beforeDraw();
 		// 步骤2
@@ -31,14 +35,16 @@ class View{
 	}
 }
 
-class Dialog extends View{
-	protected void beforeDraw(){
+class Dialog extends View {
+	protected void beforeDraw() {
 		System.out.println("beforeDraw");
 	}
-	protected void drawing(){
+
+	protected void drawing() {
 		System.out.println("drawing");
 	}
-	protected void afterDraw(){
+
+	protected void afterDraw() {
 		System.out.println("afterDraw");
 	}
 }

@@ -10,14 +10,14 @@ public class CommandPattern_LightSwitch {
 }
 
 /** µÆÅÝÓÐÁÁ¡¢Ãð×´Ì¬ */
-class Light{
-	private boolean isLighting=false;
-	
-	public void lightOn(){
-		this.isLighting=true;
+class Light {
+	private boolean isLighting = false;
+
+	public void lightOn() {
+		this.isLighting = true;
 	}
-	
-	public void lightOff(){
-		this.isLighting=false;
+
+	public void lightOff() {
+		this.isLighting = false;
 	}
 }

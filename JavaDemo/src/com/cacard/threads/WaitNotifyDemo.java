@@ -12,54 +12,55 @@ package com.cacard.threads;
 
 public class WaitNotifyDemo {
 
-	private static Object obj=new Object();
-	
-	public static void main(String[] args){
-		
+	private static Object obj = new Object();
+
+	public static void main(String[] args) {
+
 		// 线程1在obj上进行wait()
-		new Thread(new Runnable(){
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				synchronized(obj){
+				synchronized (obj) {
 					try {
-						System.out.println("thread"+Thread.currentThread().getId()+" before wait()");
+						System.out.println("thread" + Thread.currentThread().getId() + " before wait()");
 						obj.wait();
-						
-						System.out.println("thread"+Thread.currentThread().getId()+" after wait()");
+
+						System.out.println("thread" + Thread.currentThread().getId() + " after wait()");
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
-			}}).start();
-		
-		
+			}
+		}).start();
+
 		// 线程2在obj上进行wait()
-				new Thread(new Runnable(){
-					@Override
-					public void run() {
-						synchronized(obj){
-							try {
-								System.out.println("thread"+Thread.currentThread().getId()+" before wait()");
-								obj.wait();
-								System.out.println("thread"+Thread.currentThread().getId()+" after wait()");
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-						}
-					}}).start();
-				
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				synchronized (obj) {
+					try {
+						System.out.println("thread" + Thread.currentThread().getId() + " before wait()");
+						obj.wait();
+						System.out.println("thread" + Thread.currentThread().getId() + " after wait()");
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}).start();
+
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		// 主线程在obj上进行notify()/notifyAll()
-		synchronized(obj){
-			//obj.notify();
+		synchronized (obj) {
+			// obj.notify();
 			obj.notifyAll();
 		}
-				
+
 	}
 
 }

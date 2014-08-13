@@ -6,18 +6,17 @@ package com.cacard.threads;
 
 public class ThreadInterruptDemo {
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 		Thread t = new Thread(new T());
-		
+
 		t.start();
-		
-//		try {
-//			Thread.sleep(1000);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
-		
+
+		// try {
+		// Thread.sleep(1000);
+		// } catch (InterruptedException e) {
+		// e.printStackTrace();
+		// }
+
 		t.interrupt();
 		System.out.println(t.isInterrupted());
 		try {
@@ -28,23 +27,20 @@ public class ThreadInterruptDemo {
 		}
 		System.out.println(t.isInterrupted());
 	}
-	
+
 }
 
-class T implements Runnable
-{
+class T implements Runnable {
 
 	@Override
 	public void run() {
-		
-		int i=999999999;
-		while(i>0)
-		{
+
+		int i = 999999999;
+		while (i > 0) {
 			i--;
 		}
 
-		while(Thread.currentThread().isInterrupted()==false)
-		{
+		while (Thread.currentThread().isInterrupted() == false) {
 			// block 10 s
 			try {
 				Thread.currentThread().sleep(10000);
@@ -53,9 +49,9 @@ class T implements Runnable
 				return;
 			}
 		}
-		
+
 		System.out.println("out");
-		
+
 	}
-	
+
 }

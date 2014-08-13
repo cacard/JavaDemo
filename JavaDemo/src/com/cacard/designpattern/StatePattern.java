@@ -10,8 +10,7 @@
 package com.cacard.designpattern;
 
 public class StatePattern {
-
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		Context ctx = new Context();
 		ctx.writeName("good1");
 		ctx.writeName("good2");
@@ -20,49 +19,43 @@ public class StatePattern {
 		ctx.writeName("good5");
 		ctx.writeName("good6");
 	}
-	
 }
 
-interface StateBase
-{
-	void Handle(Context ctx,String name);
+interface StateBase {
+	void Handle(Context ctx, String name);
 }
 
-class StateA implements StateBase
-{
-	public void Handle(Context ctx,String str)
-	{
-		System.out.println("@StateA->"+str);
-		ctx.state=new StateB();//状态转换
+class StateA implements StateBase {
+	public void Handle(Context ctx, String str) {
+		System.out.println("@StateA->" + str);
+		ctx.state = new StateB();// 状态转换
 	}
 }
 
-class StateB implements StateBase
-{
-	int count=0;
-	public void Handle(Context ctx,String str)
-	{
-		System.out.println("@StateB->"+str);
-		
+class StateB implements StateBase {
+	int count = 0;
+
+	public void Handle(Context ctx, String str) {
+		System.out.println("@StateB->" + str);
+
 		// 当StateB被调用两次后，转向StateA
-		if(count>=1){
-			ctx.state=new StateA();
+		if (count >= 1) {
+			ctx.state = new StateA();
 		}
-		
+
 		count++;
 	}
 }
 
 /* 包含状态的类 */
-class Context
-{
+class Context {
 	public StateBase state;
-	
-	public Context(){
-		this.state=new StateA();
+
+	public Context() {
+		this.state = new StateA();
 	}
-	
-	public void writeName(String str){
+
+	public void writeName(String str) {
 		state.Handle(this, str);
 	}
 }

@@ -60,8 +60,7 @@ public class ThreadLocalDemo {
 		}
 
 		try {
-			List<Future<Integer>> l = Executors.newFixedThreadPool(2)
-					.invokeAll(tasks);
+			List<Future<Integer>> l = Executors.newFixedThreadPool(2).invokeAll(tasks);
 			for (int i = 0; i < 10; i++) {
 				System.out.println(l.get(i).get());
 
@@ -70,10 +69,10 @@ public class ThreadLocalDemo {
 			e.printStackTrace();
 		}
 
-		for(int i=0;i<10;i++){
+		for (int i = 0; i < 10; i++) {
 			System.out.println(c.refList);
 		}
-		
+
 	}
 
 }
@@ -109,8 +108,7 @@ class XX {
 	}
 
 	public void SomeMethod() {
-		System.out.println("[SomeMethod][threadid:"
-				+ Thread.currentThread().getId() + "]" + tl.get().i);
+		System.out.println("[SomeMethod][threadid:" + Thread.currentThread().getId() + "]" + tl.get().i);
 	}
 
 }
@@ -122,7 +120,6 @@ class YY {
 	public int i;
 
 	public YY() {
-		System.out.println("[ForThreadLocalGeneric ctor][threadid:"
-				+ Thread.currentThread().getId() + "]");
+		System.out.println("[ForThreadLocalGeneric ctor][threadid:" + Thread.currentThread().getId() + "]");
 	}
 }

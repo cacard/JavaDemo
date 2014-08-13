@@ -68,8 +68,7 @@ public class Reflect {
 
 		// 调用方法
 		try {
-			Method im = c.getDeclaredMethod("staticMethodWithParams",
-					new Class[] { String.class, int.class });
+			Method im = c.getDeclaredMethod("staticMethodWithParams", new Class[] { String.class, int.class });
 
 			im.invoke(obj, "cacard", 2);
 

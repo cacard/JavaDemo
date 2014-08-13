@@ -1,5 +1,4 @@
 /**
- * @author licunqing
  * 
  * 嵌套类（Nested）和内部类（Inner）
  * 
@@ -31,76 +30,71 @@ package com.cacard.javalang;
 
 public class InnerClassDemo {
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		staticMethod();
 	}
-	
-	private static void localClass(final boolean a){
-		class MyLocalClass implements MyFace{
-			public void invoke()
-			{
+
+	private static void localClass(final boolean a) {
+		class MyLocalClass implements MyFace {
+			public void invoke() {
 				System.out.println(a);
 			}
 		}
 	}
-	
+
 	/**
 	 * 外部类的静态方法必须由外部实例获取到内部实例来访问内部类
 	 */
-	public static void staticMethod(){
-		InnerClassDemo.MyInnerClass inner = new InnerClassDemo().new MyInnerClass(); /*!!!!!!!! 很奇葩的语法*/
+	public static void staticMethod() {
+		InnerClassDemo.MyInnerClass inner = new InnerClassDemo().new MyInnerClass(); // 很奇葩的语法
 		inner.say();
 	}
-	
+
 	/**
 	 * 外部类的实例方法可直接创建内部类实例
 	 */
-	public void instanceMethod(){
+	public void instanceMethod() {
 		MyInnerClass inner = new MyInnerClass();
 		inner.say();
 	}
-	
+
 	/**
 	 * Non-static Member Class is Inner
 	 */
-	class MyInnerClass{
-		
-		//public static int a=0; /*不允许静态成员，除非是final的*/
-		public static final int b=0;
-		
+	class MyInnerClass {
+
+		// public static int a=0; /*不允许静态成员，除非是final的*/
+		public static final int b = 0;
+
 		/*
-		 * 不允许静态构造函数
-		static{
-			a=1;
-		}
-		*/
-		
+		 * 不允许静态构造函数 static{ a=1; }
+		 */
+
 		/*
-		 * 内部不允许定义接口（接口只允许定义在top-level类中或者interface中）
-		 * 接口是隐式静态的。
-		 * Non-StaticMemberClass同样不允许定义静态方法
-		public interface MyFace{}
-		*/
-		
-		public void say(){
+		 * 内部不允许定义接口（接口只允许定义在top-level类中或者interface中） 接口是隐式静态的。
+		 * Non-StaticMemberClass同样不允许定义静态方法 public interface MyFace{}
+		 */
+
+		public void say() {
 			System.out.println("MyInnerClass.say()");
 		}
-		
+
 	}
-	
+
 	/**
 	 * 接口是隐式静态的，所以不属于InnerClass
 	 */
-	public interface MyFace{
-		public interface MyFaceInner{}
+	public interface MyFace {
+		public interface MyFaceInner {
+		}
 	}
-	
+
 	/**
 	 * StaticMemberClass不是Inner的
-	 *
+	 * 
 	 */
-	public static class StaticMemberClass{
-		
+	public static class StaticMemberClass {
+
 	}
-	
+
 }

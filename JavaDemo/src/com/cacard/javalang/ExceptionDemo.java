@@ -31,98 +31,95 @@ package com.cacard.javalang;
 
 public class ExceptionDemo {
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
 		testExceptionCause();
 	}
-	
+
 	/**
 	 * Catch Checked Exception
 	 */
-	private static void testCheckedException(){
-		try{
+	private static void testCheckedException() {
+		try {
 			throw new Exception("Normal Exception");
-		}catch(Exception e){
-			System.out.println("->"+e.getMessage());
+		} catch (Exception e) {
+			System.out.println("->" + e.getMessage());
 		}
 	}
-	
+
 	/**
-	 * UncheckedException(RuntimeException)
-	 * 可进行try/catch，也可不catch
+	 * UncheckedException(RuntimeException) 可进行try/catch，也可不catch
 	 */
-	private static void testUncheckedException(){
-		
-		//throw new RuntimeException("Runtime Exception");
-		
-		try{
+	private static void testUncheckedException() {
+
+		// throw new RuntimeException("Runtime Exception");
+
+		try {
 			throw new RuntimeException("Runtime Exception");
-		}catch(Exception e){
-			System.out.println("->"+e.getMessage());
+		} catch (Exception e) {
+			System.out.println("->" + e.getMessage());
 		}
 	}
-	
+
 	/**
-	 * Catch Error
-	 * 采用Throwable进行catch
+	 * Catch Error 采用Throwable进行catch
 	 */
-	private static void testError(){
-		try{
+	private static void testError() {
+		try {
 			throw new Error("error");
-		}catch(Throwable e){
-			System.out.println("->"+e.getMessage());
+		} catch (Throwable e) {
+			System.out.println("->" + e.getMessage());
 		}
 	}
-	
-	
+
 	/**
 	 * 重新抛出异常：直接抛出
 	 * 
 	 * 
-	 * @throws Exception 
-	 */
-	private static void reThrowException1(){
-		
-		try{ //使用嵌套，捕捉catch中重新抛出的异常
-			try{
-				throw new Exception("exception");
-			}catch(Exception e){
-				throw e; //重新抛出，statckTrace为原始异常stack。
-				//e.printStackTrace();
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-	
-	/**
-	 * 重新抛出异常：重新创建新异常抛出，原始异常堆栈丢失（可通过Cause异常获取原始异常）
 	 * @throws Exception
 	 */
-	private static void reThrowException2(){
-		try{
-			try{
+	private static void reThrowException1() {
+
+		try { // 使用嵌套，捕捉catch中重新抛出的异常
+			try {
 				throw new Exception("exception");
-			}catch(Exception e){
-				throw new Exception(e);
+			} catch (Exception e) {
+				throw e; // 重新抛出，statckTrace为原始异常stack。
+				// e.printStackTrace();
 			}
-		}
-		catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * 重新抛出异常：重新创建新异常抛出，原始异常堆栈丢失（可通过Cause异常获取原始异常）
+	 * 
+	 * @throws Exception
+	 */
+	private static void reThrowException2() {
+		try {
+			try {
+				throw new Exception("exception");
+			} catch (Exception e) {
+				throw new Exception(e);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * 异常链
 	 */
-	private static void testExceptionCause(){
+	private static void testExceptionCause() {
 		Exception e1 = new Exception("e1");
 		Exception e2 = new Exception("e2");
-		
+
 		e2.initCause(e1);
-		
-		try{
+
+		try {
 			throw e2;
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			e.getCause().printStackTrace();
 		}
