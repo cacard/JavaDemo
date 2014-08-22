@@ -43,7 +43,7 @@ public class CallableDemo {
 		}
 
 		// #2:Callable提交给Executor，得到一个表示异步计算结果的Future。
-		ExecutorService executor = Executors.newSingleThreadExecutor();executor.e
+		ExecutorService executor = Executors.newSingleThreadExecutor();
 		Future<Integer> f = executor.submit(new MyCallable(1));
 		try {
 			int r = f.get();
