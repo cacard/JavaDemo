@@ -17,7 +17,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Todo_Ref {
+public class Ref {
 
 	// SoftReference
 	static void testSoftReference() {

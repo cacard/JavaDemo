@@ -18,6 +18,11 @@ public class Person2 {
 		this.name = name;
 		this.age = age;
 	}
+	
+//	@Override
+//	public void finalize(){
+//		System.out.println("finalize()");
+//	}
 
 	public void instanceMethod() {
 		System.out.println("this is instance method.");
