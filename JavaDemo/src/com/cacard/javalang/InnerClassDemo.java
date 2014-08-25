@@ -32,6 +32,9 @@ public class InnerClassDemo {
 
 	public static void main(String[] args) {
 		staticMethod();
+		
+		InnerClassDemo.MyFace face=null; 
+		
 	}
 
 	private static void localClass(final boolean a) {
@@ -83,6 +86,7 @@ public class InnerClassDemo {
 
 	/**
 	 * 接口是隐式静态的，所以不属于InnerClass
+	 * 可像 static-member class一样引用
 	 */
 	public interface MyFace {
 		public interface MyFaceInner {
