@@ -1,7 +1,9 @@
 /**
- * Builder模式
- * 使用一个类来构造另外一个类
- * 常见的有StringBuilder/Notification.Builder
+ * 		Builder模式
+ * 
+ * 			使用一个类来构造另外一个类
+ * 				ClassY y = new ClassX().setAAA().setBBB().setCCC().build();
+ * 			常见的有StringBuilder/Notification.Builder
  */
 
 package com.cacard.designpattern;
