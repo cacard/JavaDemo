@@ -3,7 +3,21 @@ package com.cacard.threads;
 public class ThreadDemo {
 
 	public static void main(String[] args) {
-		testState();
+		new Thread(new Runnable(){
+
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("end");
+				
+			}}).start();
+		
+		System.out.println("main over");
 	}
 
 	/**
