@@ -2,6 +2,9 @@
  * ThreadPoolExecutor（线程池）原理探索
  * 
  * 		- 内部工作线程基于AQS
+ * 		- 核心原理：
+ * 				- 排队队列使用BlockingQueue
+ * 				- 工作线程持续从bq中取任务（task,runnable）执行。
  */
 
 package com.cacard.threads;
