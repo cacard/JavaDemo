@@ -6,7 +6,7 @@
  * 	- 类数组属于被动引用
  */
 
-package javademo.jvm;
+package com.cacard.jvm;
 
 
 public class ClassInitTest {
