@@ -2,26 +2,15 @@ package com.cacard.javalang;
 
 public class Test {
 
-	public static void main(String[] args){
+	public static void main(String[] args) {
+
+		Integer s = 1;
+		M(s);
+		System.out.println(s);
+	}
+
+	public static void M(Integer c) {
 		
 	}
-	
-	static class Clazz
-	{
-		public int var;
-	}
-	
-	public static void M(Clazz c)
-	{
-		c.var=2;
-	}
-	
-	static void test()
-	{
-		Clazz c = new Clazz();
-		M(c);
-		System.out.println(c.var);
-	}
-	
-}
 
+}
