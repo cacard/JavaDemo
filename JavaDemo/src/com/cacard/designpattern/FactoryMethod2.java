@@ -3,7 +3,6 @@ package com.cacard.designpattern;
 /**
  * Factory Method
  * 
- * 这个Demo仅仅涉及到子类实现一个具体类，进一步，可参看 FactoryMethod3
  * 
  * @author cunqingli
  * 

@@ -1,13 +1,11 @@
 package com.cacard.designpattern;
 
 /**
- * Factory Method
+ * Abstract Factory Pattern
  * 
- * Definition: Define an interface for creating an object, but let subclasses
- * decide which class to instantiate. Factory Method lets a class defer
- * instantiation to subclasses.
+ * Provide an interface for creating families of related or dependent objects
+ * without specifying their concrete classes
  * 
- * 有点模板方法的味道，模板方式的侧重点是构建算法骨架，而工厂方法侧重点是子类创建具体的对象。
  * 
  * @author cunqingli
  * 
@@ -74,7 +72,7 @@ class BenzCarFactory extends CarFactory {
 
 // ----------------------------------
 // test
-public class FactoryMethod3 {
+public class Factory_AbstractFactoryPattern {
 
 	public static void main(String[] args) {
 		CarFactory factory = new BenzCarFactory();
