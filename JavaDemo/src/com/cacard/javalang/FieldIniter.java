@@ -34,6 +34,8 @@ public class FieldIniter {
 
 	public static void main(String[] args) {
 		new FieldIniter();
+		int a = 1<<1;
+		System.out.println(a);
 	}
 
 }
