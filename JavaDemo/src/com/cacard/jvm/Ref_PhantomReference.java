@@ -9,7 +9,7 @@
  * 
  */
 
-package com.cacard.javalang;
+package com.cacard.jvm;
 
 import java.lang.ref.PhantomReference;
 import java.lang.ref.Reference;

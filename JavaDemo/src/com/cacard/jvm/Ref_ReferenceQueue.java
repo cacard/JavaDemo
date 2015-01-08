@@ -2,7 +2,7 @@
  * 
  * 
  */
-package com.cacard.javalang;
+package com.cacard.jvm;
 
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;

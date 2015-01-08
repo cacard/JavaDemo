@@ -10,7 +10,7 @@
  * 
  */
 
-package com.cacard.javalang;
+package com.cacard.jvm;
 
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
@@ -24,25 +24,25 @@ public class Ref {
 		SoftReference<List<Integer>> softRef = new SoftReference<List<Integer>>(new ArrayList<Integer>());
 
 		// GC测试
-		System.out.println(softRef.get() == null);	// false
+		System.out.println(softRef.get() == null); // false
 		System.gc();
-		System.out.println(softRef.get() == null);	// false
+		System.out.println(softRef.get() == null); // false
 	}
-	
+
 	// WeakReference
 	static void testWeakReference() {
 		WeakReference<List<Integer>> weakRef = new WeakReference<List<Integer>>(new ArrayList<Integer>());
 
 		// GC测试
 		System.out.println(weakRef.get() == null); // GC之前:false
-		System.gc();							   // System.gc()并不一定真的发生一次full GC
+		System.gc(); // System.gc()并不一定真的发生一次full GC
 		System.out.println(weakRef.get() == null); // GC之后:true
 	}
 
 	public static void main(String[] args) {
 		testSoftReference();
-		
-		for(int i=0;i<100;i++)
+
+		for (int i = 0; i < 100; i++)
 			testWeakReference();
 	}
 
