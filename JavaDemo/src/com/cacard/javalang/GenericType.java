@@ -9,8 +9,13 @@ import java.io.Serializable;
 public class GenericType {
 
 	public static void main(String[] args) {
-		TestExtendsFromInterface(SomeClass.class);
-		TestExtendsFromSuperClass(SomeThread.class);
+
+		GenericSub1 obj = new GenericSub1();
+		GenericSub1 o = GenericType.<GenericSub1> testMethod(GenericSub1.class);
+
+	}
+
+	static void testBasic() {
 
 		// RawType
 		boolean b0 = new GenericClass1() instanceof Object; // true
@@ -24,17 +29,11 @@ public class GenericType {
 		GenericClass1<SomeClass> t = new GenericClass1<>();
 	}
 
-	/**
-	 * extends关键词并不仅仅代表“继承自”，也可代表“实现了”（接口）
-	 * 
-	 * @param c
-	 */
-	static void TestExtendsFromInterface(Class<? extends Serializable> c) {
+	public static <T extends GenericBase> T testMethod(Class<?> c) {
+		System.out.println(c.getSimpleName());
 
-	}
-
-	static void TestExtendsFromSuperClass(Class<? extends SomeThread> c) {
-
+		GenericSub1 obj = new GenericSub1();
+		return (T) obj;
 	}
 
 }
@@ -49,4 +48,13 @@ class SomeThread extends Thread {
 
 class GenericClass1<T extends Serializable> {
 
+}
+
+class GenericBase {
+}
+
+class GenericSub1 extends GenericBase {
+}
+
+class GenericSub2 extends GenericBase {
 }
