@@ -3,6 +3,7 @@ package com.cacard.threads;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
 /**
@@ -15,7 +16,7 @@ import java.util.concurrent.FutureTask;
  */
 public class FutureTaskDemo {
 	public static void main(String[] args) {
-		demo1();
+		demo2();
 	}
 
 	private static void demo1() {
@@ -25,9 +26,8 @@ public class FutureTaskDemo {
 		Callable<Integer> callable = new Callable<Integer>() {
 			public Integer call() {
 				try {
-					Thread.currentThread().sleep(2000);
+					Thread.sleep(2000);
 				} catch (Exception e) {
-					// pass
 				}
 				return 100;
 			}
@@ -44,5 +44,35 @@ public class FutureTaskDemo {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * future的cancel操作 使用interrupt中断线程
+	 */
+	private static void demo2() {
+		ExecutorService es = Executors.newCachedThreadPool();
+
+		Future<?> f = es.submit(new Runnable() {
+			@Override
+			public void run() {
+				while (!Thread.currentThread().isInterrupted()) {
+					System.out.println("running...");
+					// try {
+					// Thread.sleep(500);
+					// } catch (Exception e) {
+					// e.printStackTrace();
+					// }
+				}
+				System.out.println("interrupted!");
+			}
+		});
+
+		try {
+			Thread.sleep(2000);
+		} catch (Exception e) {
+		}
+		f.cancel(true);
+		System.out.println("canceled");
+
 	}
 }
